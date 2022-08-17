@@ -15,7 +15,7 @@
 [01:](listas/sequenciais/01.py) Conversor de temperatura Fahrenheit-Celsius/Celsius-Fahrenheit
 ### Estruturas de decisão:
 [01:](listas/decisao/01.py) Calculadora de áreas de figuras geométricas (limitada a quadrados, retângulos, círculos e triângulos)
-### Estruturas de repetição
+### Estruturas de repetição:
 [01:](listas/repeticao/01.py) Verificador de anos bissextos
 ### Gráficos:
 [1:]() 10 Países com mais medalhas olímpicas desde 1896 | [base de dados](dashboard/datasets)

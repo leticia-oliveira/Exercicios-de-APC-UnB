@@ -18,4 +18,4 @@
 ### Estruturas de repetição:
 [01:](listas/repeticao/01.py) Verificador de anos bissextos
 ### Gráficos:
-[1:]() Continentes e suas Medalhas Olímpicas | [base de dados](dashboard/datasets/medalhaspaises)
+[1:]() Continentes e suas Medalhas Olímpicas | [base de dados](dashboard/datasets/medalhaspaises.csv)

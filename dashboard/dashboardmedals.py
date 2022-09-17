@@ -282,16 +282,6 @@ def name_pais(values):
 opcoes = list(list_siglas())
 
 def quadroMedalhas(nome_pais):
-    
-  #Variáveis ----------------------------------
-  gold = []   #
-  silver = [] #
-  bronze = [] #talvez isso possa ser apagado!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-  cat_gold = []#
-  cat_silver = []#
-  cat_bronze = []#
-  # --------------------------------------------
-
   #estrutura de repetição que vai escanear o Dataframe e capturar os valores
   for i in dados:
       if i[0] == nome_pais:
@@ -357,35 +347,58 @@ fig2 = cria_grafico_continente("Verão")
 fig4 =  cria_grafico_mais_medalha_ouro(15)
 
 #cor de fundo e texto padrão
-colors = {'background': '#fffff', 'text': '#7FDBFF'}
+colors = {'background': '#fffff', 'text': '#FF0000'}
 
 app.layout = html.Div(
+    className="app-header",
     style={'backgroundColor': colors['background']}, 
     children=[
+        #título e imagem
+        html.Div(
         html.H1(
             children='Grupo A - Medalhas Olímpicas', #título
-            style={'textAlign': 'center', 'color': '#000000'}
-        ),
+            style={'textAlign':'center', 'color': '#000000'}
+        )),
+        html.Div([
+        html.Img(
+            src="https://github.com/leticia-oliveira/Exercicios-de-APC-UnB/blob/main/dashboard/images/olimpiadas.png?raw=true",
+            style={
+                'height': '5%',
+                'width': '5%',
+        })], 
+        style={'textAlign': 'center'}),
+
+        #texto
+        html.Div(
+        html.H5(
+            children='Os gráficos abaixo tem como objetivo apresentar ao público uma visão ampla e analítica sobre dados relacionados aos Jogos Olímpicos de 1896 a 2016, especificamente sobre as medalhas distribuídas neste período.', 
+            style={'textAlign': 'center', 'color': '#808080'}
+        )),
 
         html.Div(
-            children='Os gráficos abaixo tem como objetivo apresentar ao público uma visão ampla e analítica sobre dados relacionados aos Jogos Olímpicos de 1896 a 2016, especificamente sobre as medalhas distribuídas neste período.', 
-            style={'textAlign': 'center', 'color': colors['text']}
-        ),
-
+        html.H2(
+            children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
+            style={'color': colors['text']}
+        )),
+        html.Div(
         #apresenta as opções do *gráfico de continentes com o valor 'Verão' selecionado como padrão
         dcc.RadioItems(
             options=[
             {'label': 'Todas', 'value': 'Todas'},
-            {'label': 'Verão', 'value': 'Verão'},
-            {'label': 'Inverno', 'value': 'Inverno'},
+            {'label': html.Span(['Verão'], style={'color': 'Orange'}), 'value': 'Verão'},
+            {'label': html.Span(['Inverno'], style={'color': 'Blue'}), 'value': 'Inverno'},
             ],
             value='Verão',
             id='edicao_olimpicas'
-        ),
+        ),  style={'textAlign':'right', 'font-size': 15,}),
         #apresenta o gráfico de *continentes
         dcc.Graph(id='grafico_continente', figure=fig2),
         
-
+        html.Div(
+        html.H2(
+            children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
+            style={'color': colors['text']}
+        )),
         #apresenta o dropdown do *gráfico de pizza com o valor 'Verão' selecionado como padrão
         dcc.Dropdown(opcoes_grafico_pizza, value='Verão', id='summ_wint'),
         #apresenta o gráfico de pizza

@@ -282,16 +282,6 @@ def name_pais(values):
 opcoes = list(list_siglas())
 
 def quadroMedalhas(nome_pais):
-    
-  #Variáveis ----------------------------------
-  gold = []   #
-  silver = [] #
-  bronze = [] #talvez isso possa ser apagado!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-  cat_gold = []#
-  cat_silver = []#
-  cat_bronze = []#
-  # --------------------------------------------
-
   #estrutura de repetição que vai escanear o Dataframe e capturar os valores
   for i in dados:
       if i[0] == nome_pais:

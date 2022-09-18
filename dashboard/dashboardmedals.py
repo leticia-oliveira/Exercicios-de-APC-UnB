@@ -362,6 +362,8 @@ app.layout = html.Div(
         )),
 
 #gráfico 1 --------------------------------------------------------------------
+        dcc.Tabs([
+        dcc.Tab(label='Gráfico 1', children=[
         html.Div(
         html.H2(
             children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
@@ -380,8 +382,9 @@ app.layout = html.Div(
         ),  style={'textAlign':'center', 'font-size': 15,}),
         #apresenta o gráfico de *continentes
         dcc.Graph(id='grafico_continente', figure=fig2),
-
+        ]),
 #gráfico 2 --------------------------------------------------------------------
+        dcc.Tab(label='Gráfico 2', children=[
         html.Div(
         html.H2(
             children='O objetivo deste gráfico é demonstrar os países com mais medalhas nas olimpíadas e a proporção das suas vitórias.',
@@ -391,8 +394,9 @@ app.layout = html.Div(
         dcc.Dropdown(opcoes_grafico_pizza, value='Verão', id='summ_wint', searchable=False),
         #apresenta o gráfico de pizza
         dcc.Graph(id='grafico_setor', figure=fig1),
-
+        ]),
 #gráfico 3 --------------------------------------------------------------------
+        dcc.Tab(label='Gráfico 3', children=[
         html.Div(
         html.H2(
             children='Este gráfico de barras apresenta informações sobre o número de medalhas de ouro, prata e bronze conquistadas por cada país nos Jogos Olímpicos entre 1896 e 2016', 
@@ -407,8 +411,10 @@ app.layout = html.Div(
         ),
         #apresenta o gráfico *quadro de medlahas
         dcc.Graph(id='quadro_de_medalhas', figure=fig),
+        ]),
 
 #gráfico 4 --------------------------------------------------------------------
+        dcc.Tab(label='Gráfico 4', children=[
         html.Div(
         html.H2(
             children='O gráfico abaixo apresenta um ranking com o total de medalhas de ouro desde 1896 da quantidade de países selecionada.',
@@ -418,7 +424,23 @@ app.layout = html.Div(
         dcc.Slider(0, 15, 1, value=15, marks=None, id='slider_qtd_medalhas', tooltip={"placement": "bottom", "always_visible": True}),
         #apresenta o gráfico *ranking de medalhas de ouro
         dcc.Graph(id='medalhas_de_ouro', figure=fig4)
-    ])
+        ]),     
+    
+#barra com nomes e matrículas --------------------------------------------------------------------
+        dcc.Tab(label='Alunos', children=[
+        dcc.Markdown('''
+        ## Membros
+        |Matrícula|Nome Completo|
+        |:---|:---|
+        |211061411|André Raposo Rocha|
+        |202016300|Gabriel Vieira Santos|
+        |211061930|João Lucas Ramos|
+        |211061940|João Pedro Ferreira Alves|
+        |221029258|Letícia Oliveira Ribeiro|
+        |202017147|Thales Germano Vargas Lima|
+        |190048760|Wellington Jonathan de Souza Rodrigues|
+        ''')]
+        )])])
 
 #callbacks --------------------------------------------------------------------
 

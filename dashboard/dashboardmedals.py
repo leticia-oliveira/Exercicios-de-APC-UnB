@@ -371,13 +371,13 @@ app.layout = html.Div(
         #apresenta as opções do *gráfico de continentes com o valor 'Verão' selecionado como padrão
         dcc.RadioItems(
             options=[
-            {'label': 'Todas', 'value': 'Todas'},
-            {'label': html.Span(['Verão'], style={'color': 'Orange'}), 'value': 'Verão'},
-            {'label': html.Span(['Inverno'], style={'color': 'Blue'}), 'value': 'Inverno'},
+            {'label': html.Span(['TODAS'], style={'fontWeight':'bold', 'font-size':20}), 'value': 'Todas'},
+            {'label': html.Span(['VERÃO'], style={'fontWeight':'bold', 'font-size':20}), 'value': 'Verão'},
+            {'label': html.Span(['INVERNO'], style={'fontWeight':'bold', 'font-size':20}), 'value': 'Inverno'},
             ],
             value='Verão',
             id='edicao_olimpicas'
-        ),  style={'textAlign':'right', 'font-size': 15,}),
+        ),  style={'textAlign':'center', 'font-size': 15,}),
         #apresenta o gráfico de *continentes
         dcc.Graph(id='grafico_continente', figure=fig2),
 

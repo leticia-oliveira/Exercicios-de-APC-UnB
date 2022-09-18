@@ -60,14 +60,12 @@ for coluna in dados:
 # remove os valores repetidos da lista
 continente = list(dict.fromkeys(continente))
 
-
 #função que coleta os dados de cada continente e os coloca em listas
 def cria_grafico_continente(edicoes_olimpicas):
 
     ouros = [0, 0, 0, 0, 0, 0, 0, 0]
     pratas = [0, 0, 0, 0, 0, 0, 0, 0]
     bronzes = [0, 0, 0, 0, 0, 0, 0, 0]
-
 
     if edicoes_olimpicas == "Todas":
         id_ouro = -5
@@ -84,7 +82,6 @@ def cria_grafico_continente(edicoes_olimpicas):
         id_prata = -9
         id_bronze = -8
         
-
     for coluna_continente in dados:
         if coluna_continente[-1] == continente[0]:
             ouros[0] = ouros[0]+coluna_continente[id_ouro]
@@ -126,7 +123,6 @@ def cria_grafico_continente(edicoes_olimpicas):
             pratas[7] = pratas[7]+coluna_continente[id_prata]
             bronzes[7] = bronzes[7]+coluna_continente[id_bronze]
        
-
     #define o formato do gráfico
     fig = px.bar(template="plotly_white", barmode='group')
 
@@ -166,7 +162,6 @@ def cria_grafico_continente(edicoes_olimpicas):
 
 
 
-
 #inicio do grafico de pizza --------------------------------------------------------------------
 
 def cria_grafico_pizza(edicao_olimpica):
@@ -198,8 +193,8 @@ def cria_grafico_pizza(edicao_olimpica):
     if edicao_olimpica == 'Todas':
     
         for coluna in dados:
-            pais_valor = []  #lista que armazena o pais e o valor da repetição da coluna
-            pais_valor.append(coluna[0])  #coluna de paises
+            pais_valor = []  #lista que armazena o país e o valor da repetição da coluna
+            pais_valor.append(coluna[0])  #coluna de países
             pais_valor.append(coluna[-2])  #coluna de valores totais
             estrutura.append(pais_valor)  #lista de lista para armazenar pais e valor de todas iteraçoes
                                           #para ordenar baseado no parametro valor mantendo a conexão com o n
@@ -261,10 +256,9 @@ opcoes_grafico_pizza = ['Inverno', 'Verão', 'Todas']
 
 
 
-
 #inicio do Grafico quadro de medalhas --------------------------------------------------------------------
 
-def list_siglas(): 
+def list_siglas(): #o resultado dessa lista vai aparecer nas opções do dropdown
     list_sigla = []    
     for coluna in dados:
       list_sigla.append(coluna[1])  #lista que armazena o pais e o valor da repetição da coluna
@@ -276,7 +270,6 @@ def name_pais(values):
       if coluna[1]==values:
         nome_do_pais=coluna[0]
     return nome_do_pais
-
 
 #cria o opções da lista drop Down
 opcoes = list(list_siglas())
@@ -295,12 +288,9 @@ def quadroMedalhas(nome_pais):
   return lst_medalhas
 
 def cria_grafico_quadro_medalhas(value):
-
     fig = px.bar(template="plotly_white")
-
     if value == "BRA":
         lst_medalhas = quadroMedalhas('Brazil')
-
     else:
         lst_medalhas= quadroMedalhas(name_pais(value))
 
@@ -328,12 +318,11 @@ def cria_grafico_quadro_medalhas(value):
             legend=dict(x=0, y=1.0)
             )
 
-    return fig   
+    return fig           
 
 #fim de todos os gráficos --------------------------------------------------------------------
-
-
 #daqui pra cima nenhum gráfico aparece ainda, eles são apenas definidos ----------------------
+
 
 
 #INICIO DO DASH -------------------------------------------------------------------- 
@@ -345,7 +334,6 @@ fig = cria_grafico_quadro_medalhas("USA")
 fig1 = cria_grafico_pizza("Todas")
 fig2 = cria_grafico_continente("Verão")
 fig4 =  cria_grafico_mais_medalha_ouro(15)
-
 #cor de fundo e texto padrão
 colors = {'background': '#fffff', 'text': '#FF0000'}
 
@@ -362,10 +350,8 @@ app.layout = html.Div(
         html.Div([
         html.Img(
             src="https://github.com/leticia-oliveira/Exercicios-de-APC-UnB/blob/main/dashboard/images/olimpiadas.png?raw=true",
-            style={
-                'height': '5%',
-                'width': '5%',
-        })], 
+            style={'height': '5%', 'width': '5%',}
+        )], 
         style={'textAlign': 'center'}),
 
         #texto
@@ -375,6 +361,7 @@ app.layout = html.Div(
             style={'textAlign': 'center', 'color': '#808080'}
         )),
 
+#gráfico 1 --------------------------------------------------------------------
         html.Div(
         html.H2(
             children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
@@ -393,10 +380,11 @@ app.layout = html.Div(
         ),  style={'textAlign':'right', 'font-size': 15,}),
         #apresenta o gráfico de *continentes
         dcc.Graph(id='grafico_continente', figure=fig2),
-        
+
+#gráfico 2 --------------------------------------------------------------------
         html.Div(
         html.H2(
-            children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
+            children='O objetivo deste gráfico é demonstrar os países com mais medalhas nas olimpíadas e a proporção das suas vitórias.',
             style={'color': colors['text']}
         )),
         #apresenta o dropdown do *gráfico de pizza com o valor 'Verão' selecionado como padrão
@@ -404,28 +392,35 @@ app.layout = html.Div(
         #apresenta o gráfico de pizza
         dcc.Graph(id='grafico_setor', figure=fig1),
 
-
-        #texto acima do terceiro gráfico
-        html.Div(children='Dash: Grafico de medalhas.', 
-            style={'textAlign': 'center', 'color': colors['text']}),
-
+#gráfico 3 --------------------------------------------------------------------
+        html.Div(
+        html.H2(
+            children='Este gráfico de barras apresenta informações sobre o número de medalhas de ouro, prata e bronze conquistadas por cada país nos Jogos Olímpicos entre 1896 e 2016', 
+            style={'color': colors['text']}
+        )),
         #dropdown do gráfico *quadro de medalhas com o valor 'BRA' selecionado como padrão
-        dcc.Dropdown(opcoes, value='BRA', id='siglas_pais'),
+        dcc.Dropdown(opcoes, value='BRA', id='siglas_pais', searchable=True
+            ),
         #apresenta o gráfico *quadro de medlahas
         dcc.Graph(id='quadro_de_medalhas', figure=fig),
 
+#gráfico 4 --------------------------------------------------------------------
+        html.Div(
+        html.H2(
+            children='O gráfico abaixo apresenta um ranking com o total de medalhas de ouro desde 1896 da quantidade de países selecionada.',
+            style={'color': colors['text']}
+        )),
         #adiciona o slider acima do gráfico de *ranking de medalhas de ouro
-        dcc.Slider(0, 15, 1, value=15, marks=None, id='slider_qtd_medalhas',
-                tooltip={"placement": "bottom", "always_visible": True}),
+        dcc.Slider(0, 15, 1, value=15, marks=None, id='slider_qtd_medalhas', tooltip={"placement": "bottom", "always_visible": True}),
         #apresenta o gráfico *ranking de medalhas de ouro
         dcc.Graph(id='medalhas_de_ouro', figure=fig4)
-        ]
-    )
+    ])
 
 #callbacks --------------------------------------------------------------------
 
 #o que torna a dashboard interativa. sempre que mudamos alguma informação de 
-#entrada, o callback chama a função novamente, atualizando a saída *#*# foi o que eu entendi. corrija e me avise se estiver errado :)
+#entrada, clicando em um botão por exemplo, o callback chama a função novamente, 
+#atualizando a saída
 
 @app.callback(
     Output('grafico_continente', 'figure'),

@@ -388,7 +388,7 @@ app.layout = html.Div(
             style={'color': colors['text']}
         )),
         #apresenta o dropdown do *gráfico de pizza com o valor 'Verão' selecionado como padrão
-        dcc.Dropdown(opcoes_grafico_pizza, value='Verão', id='summ_wint'),
+        dcc.Dropdown(opcoes_grafico_pizza, value='Verão', id='summ_wint', searchable=False),
         #apresenta o gráfico de pizza
         dcc.Graph(id='grafico_setor', figure=fig1),
 
@@ -404,7 +404,7 @@ app.layout = html.Div(
         ),
         #dropdown do gráfico *quadro de medalhas com o valor 'BRA' selecionado como padrão
         dcc.Dropdown(opcoes, value='BRA', id='siglas_pais', searchable=True
-            ),
+        ),
         #apresenta o gráfico *quadro de medlahas
         dcc.Graph(id='quadro_de_medalhas', figure=fig),
 

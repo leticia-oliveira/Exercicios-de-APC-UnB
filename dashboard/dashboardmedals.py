@@ -398,6 +398,10 @@ app.layout = html.Div(
             children='Este gráfico de barras apresenta informações sobre o número de medalhas de ouro, prata e bronze conquistadas por cada país nos Jogos Olímpicos entre 1896 e 2016', 
             style={'color': colors['text']}
         )),
+        html.H3(
+            children='Você pode pesquisar a sigla do país que você está buscando', 
+            style={'color': '#808080'}
+        ),
         #dropdown do gráfico *quadro de medalhas com o valor 'BRA' selecionado como padrão
         dcc.Dropdown(opcoes, value='BRA', id='siglas_pais', searchable=True
             ),

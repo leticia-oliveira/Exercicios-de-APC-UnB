@@ -9,7 +9,7 @@ data = pd.read_csv('https://raw.githubusercontent.com/leticia-oliveira/Exercicio
 df = pd.DataFrame(data)
 dados = df.values.tolist()
 
-#inicio do grafico de raling individual de paises --------------------------------------------------------------------
+#inicio do grafico de ranking individual de paises --------------------------------------------------------------------
 
 def cria_grafico_mais_medalha_ouro(qtd_paises):
 
@@ -44,27 +44,27 @@ def cria_grafico_mais_medalha_ouro(qtd_paises):
     
     return fig
 
-#fim do grafico de raling individual de paises --------------------------------------------------------------------
+#fim do grafico de ranking individual de paises --------------------------------------------------------------------
 
 
 
 #inicio do grafico de continentes --------------------------------------------------------------------
 
-#prepara uma lista para receber os valores dos *continentes
-continente = []
-
-#seleciona lista de continentes
-for coluna in dados:
-  if coluna not in continente:
-    continente.append(coluna[-1])  # coluna de continentes
-# remove os valores repetidos da lista
-continente = list(dict.fromkeys(continente))
-
 #função que coleta os dados de cada continente e os coloca em listas
 def cria_grafico_continente(edicoes_olimpicas):
 
-    ouros = [0, 0, 0, 0, 0, 0, 0, 0]
-    pratas = [0, 0, 0, 0, 0, 0, 0, 0]
+    #cria uma lista vazia para receber os valores dos *continentes
+    continente = []
+
+    for coluna in dados:
+        if coluna not in continente:
+            continente.append(coluna[-1])  # coluna de continentes, ultima coluna do dataset dados 
+    # remove os valores repetidos da lista
+    continente = list(dict.fromkeys(continente))
+    # ['Asia', 'Africa', 'South America', 'Oceania', 'Europe', 'North America', 'Independent', 'Mixed']    
+    
+    ouros =   [0, 0, 0, 0, 0, 0, 0, 0]
+    pratas =  [0, 0, 0, 0, 0, 0, 0, 0]
     bronzes = [0, 0, 0, 0, 0, 0, 0, 0]
 
     if edicoes_olimpicas == "Todas":
@@ -164,6 +164,8 @@ def cria_grafico_continente(edicoes_olimpicas):
 
 #inicio do grafico de pizza --------------------------------------------------------------------
 
+opcoes_grafico_pizza = ['Inverno', 'Verão', 'Todas']    
+
 def cria_grafico_pizza(edicao_olimpica):
     #criar listas
     paises = []
@@ -180,18 +182,18 @@ def cria_grafico_pizza(edicao_olimpica):
     # -------------------------------------------
 
     def seleciona_valor(indice_estrutura): #buscando os valores de medalha relacionado a um pais
-        return indice_estrutura[1] 
-
+            return indice_estrutura[1] 
+    
     def seleciona_valor2(indice_estrutura):
-        return indice_estrutura[1]
+            return indice_estrutura[1]
 
     def seleciona_valor3(indice_estrutura):
-        return indice_estrutura[1]
+            return indice_estrutura[1]
 
 #gráfico de pizza (total de medalhas) ----------------------------------
 
     if edicao_olimpica == 'Todas':
-    
+  
         for coluna in dados:
             pais_valor = []  #lista que armazena o país e o valor da repetição da coluna
             pais_valor.append(coluna[0])  #coluna de países
@@ -206,9 +208,9 @@ def cria_grafico_pizza(edicao_olimpica):
             paises.append(estrutura[i][0])  #agrupando todos os paises
             valores.append(estrutura[i][1])  #agrupando todos os valores de medalha
 
-        grafico = px.pie(template="plotly_white", values=valores, names=paises,
-                    title='15 países que mais conquistaram medalhas em todas as edições das Olimpíadas')
-
+        grafico = px.pie(template="plotly_white", values=valores, names=paises, title='15 países que mais conquistaram medalhas em todas as edições das Olimpíadas',
+                             hole=.2, color_discrete_sequence=px.colors.sequential.RdBu)
+                
 #gráfico de pizza (medalhas de verão) ----------------------------------
 
     if edicao_olimpica == 'Verão':
@@ -221,14 +223,13 @@ def cria_grafico_pizza(edicao_olimpica):
 
         estrutura2.sort(reverse=True, key=seleciona_valor2)
 
+       
         for i in range(15):
             listsummern.append(estrutura2[i][0])
             listsummertot.append(estrutura2[i][1])
 
-        grafico = px.pie(df, values=listsummertot, names=listsummern,
-                    hole=.2, color_discrete_sequence=px.colors.sequential.OrRd,
-                    title='15 países que mais conquistaram medalhas em edições de Verão das Olimpíadas')
-
+        grafico = px.pie(df, values=listsummertot, names=listsummern,title='15 países que mais conquistaram medalhas em todas as edições das Olimpíadas de Verão',
+                    hole=.2, color_discrete_sequence=px.colors.sequential.OrRd)
 #gráfico de pizza (medalhas de inverno) ----------------------------------
 
     if edicao_olimpica == 'Inverno':
@@ -240,17 +241,16 @@ def cria_grafico_pizza(edicao_olimpica):
 
         estrutura3.sort(reverse=True, key=seleciona_valor3)
 
+        
         for i in range(15):
             listwintern.append(estrutura3[i][0])
             listwintertot.append(estrutura3[i][1])
 
-        grafico = px.pie(df, values=listwintertot, names=listwintern,
-                    hole=.2, color_discrete_sequence=px.colors.sequential.PuBu, 
-                    title='15 países que mais conquistaram medalhas em edições de Inverno das Olimpíadas')
-
+        grafico = px.pie(df, values=listwintertot, names=listwintern,title='15 países que mais conquistaram medalhas em todas as edições das Olimpíadas Inverno',
+                    hole=.2, color_discrete_sequence=px.colors.sequential.PuBu)
+        
+        
     return grafico
-
-opcoes_grafico_pizza = ['Inverno', 'Verão', 'Todas']    
 
 #fim do gráfico de pizza --------------------------------------------------------------------
 
@@ -264,10 +264,10 @@ def list_siglas(): #o resultado dessa lista vai aparecer nas opções do dropdow
       list_sigla.append(coluna[1])  #lista que armazena o pais e o valor da repetição da coluna
     return list_sigla
 
-def name_pais(values):
+def name_pais(sigla):
     nome_do_pais = ' '
     for coluna in dados:
-      if coluna[1]==values:
+      if coluna[1]==sigla:
         nome_do_pais=coluna[0]
     return nome_do_pais
 
@@ -311,7 +311,7 @@ def cria_grafico_quadro_medalhas(value):
     fig.add_trace(go.Bar(x=cat_bronze, y=bronze, name='Medalhas de Bronze', marker_color='#FFA366', text = bronze, texttemplate = '%{text}', textposition='outside'))
 
     fig.update_layout(
-        title='Medalhas Olímpicas conquistadas pelo '+ name_pais(value)  +' (1896-2016)',
+        title='Medalhas Olímpicas conquistadas por: '+ name_pais(value)  +' (1896-2016) Em edições de Verão' ,
             title_font_size=32,
             xaxis_tickfont_size=28,
             yaxis=dict(title='Quantidade de Medalhas', titlefont_size=28, tickfont_size=18),
@@ -320,22 +320,24 @@ def cria_grafico_quadro_medalhas(value):
 
     return fig           
 
+#fim do gráfico de pizza --------------------------------------------------------------------
+
 #fim de todos os gráficos --------------------------------------------------------------------
 #daqui pra cima nenhum gráfico aparece ainda, eles são apenas definidos ----------------------
-
-
 
 #INICIO DO DASH -------------------------------------------------------------------- 
 
 app = Dash(__name__)
 
-#detalhar o que acontece aqui!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#Inicializa os graficos quando pagina é aberta
+
 fig = cria_grafico_quadro_medalhas("USA")
 fig1 = cria_grafico_pizza("Todas")
 fig2 = cria_grafico_continente("Verão")
-fig4 =  cria_grafico_mais_medalha_ouro(15)
+fig4 =  cria_grafico_mais_medalha_ouro(15) 
+
 #cor de fundo e texto padrão
-colors = {'background': '#fffff', 'text': '#FF0000'}
+colors = {'background': '#fffff', 'text': '#808080'}
 
 app.layout = html.Div(
     className="app-header",
@@ -356,14 +358,19 @@ app.layout = html.Div(
 
         #texto
         html.Div(
-        html.H5(
+        html.H4(
             children='Os gráficos abaixo tem como objetivo apresentar ao público uma visão ampla e analítica sobre dados relacionados aos Jogos Olímpicos de 1896 a 2016, especificamente sobre as medalhas distribuídas neste período.', 
             style={'textAlign': 'center', 'color': '#808080'}
         )),
 
 #gráfico 1 --------------------------------------------------------------------
+
         dcc.Tabs([
-        dcc.Tab(label='Gráfico 1', children=[
+        dcc.Tab(label='Gráficos', children=[
+        html.Div(
+        html.H1(
+            children='Gráfico 01'
+        )),
         html.Div(
         html.H2(
             children='Este gráfico compara a quantidade de medalhas de ouro, prata e bronze dos continentes, além dos times mistos e independentes.',
@@ -382,9 +389,13 @@ app.layout = html.Div(
         ),  style={'textAlign':'center', 'font-size': 15,}),
         #apresenta o gráfico de *continentes
         dcc.Graph(id='grafico_continente', figure=fig2),
-        ]),
+        
 #gráfico 2 --------------------------------------------------------------------
-        dcc.Tab(label='Gráfico 2', children=[
+
+        html.Div(
+        html.H1(
+            children='Gráfico 02'
+        )),
         html.Div(
         html.H2(
             children='O objetivo deste gráfico é demonstrar os países com mais medalhas nas olimpíadas e a proporção das suas vitórias.',
@@ -394,9 +405,13 @@ app.layout = html.Div(
         dcc.Dropdown(opcoes_grafico_pizza, value='Verão', id='summ_wint', searchable=False),
         #apresenta o gráfico de pizza
         dcc.Graph(id='grafico_setor', figure=fig1),
-        ]),
+        
 #gráfico 3 --------------------------------------------------------------------
-        dcc.Tab(label='Gráfico 3', children=[
+        
+        html.Div(
+        html.H1(
+            children='Gráfico 03'
+        )),
         html.Div(
         html.H2(
             children='Este gráfico de barras apresenta informações sobre o número de medalhas de ouro, prata e bronze conquistadas por cada país nos Jogos Olímpicos entre 1896 e 2016', 
@@ -411,21 +426,25 @@ app.layout = html.Div(
         ),
         #apresenta o gráfico *quadro de medlahas
         dcc.Graph(id='quadro_de_medalhas', figure=fig),
-        ]),
+     
 
 #gráfico 4 --------------------------------------------------------------------
-        dcc.Tab(label='Gráfico 4', children=[
+        
+        html.Div(
+        html.H1(
+            children='Gráfico 04'
+        )),
         html.Div(
         html.H2(
             children='O gráfico abaixo apresenta um ranking com o total de medalhas de ouro desde 1896 da quantidade de países selecionada.',
             style={'color': colors['text']}
         )),
         #adiciona o slider acima do gráfico de *ranking de medalhas de ouro
-        dcc.Slider(0, 15, 1, value=15, marks=None, id='slider_qtd_medalhas', tooltip={"placement": "bottom", "always_visible": True}),
+        dcc.Slider(0, 15, 1, value=7, marks=None, id='slider_qtd_medalhas', tooltip={"placement": "bottom", "always_visible": True}),
         #apresenta o gráfico *ranking de medalhas de ouro
-        dcc.Graph(id='medalhas_de_ouro', figure=fig4)
-        ]),     
-    
+        dcc.Graph(id='medalhas_de_ouro', figure=fig4),
+        ]),  
+
 #barra com nomes e matrículas --------------------------------------------------------------------
         dcc.Tab(label='Alunos', children=[
         dcc.Markdown('''
@@ -433,7 +452,6 @@ app.layout = html.Div(
         |Matrícula|Nome Completo|
         |:---|:---|
         |211061411|André Raposo Rocha|
-        |202016300|Gabriel Vieira Santos|
         |211061930|João Lucas Ramos|
         |211061940|João Pedro Ferreira Alves|
         |221029258|Letícia Oliveira Ribeiro|

@@ -1,5 +1,5 @@
 # Exercicios-de-APC-UnB (Python)
-###### Meus exercícios favoritos de Algoritmos e Programação de Computadores do curso de engenhariaa na Universidade de Brasília.
+###### Meus exercícios favoritos de Algoritmos e Programação de Computadores do curso de engenharia na Universidade de Brasília.
 ## Listas:
 #### [Estruturas Sequenciais](#estruturas-sequenciais)
 
